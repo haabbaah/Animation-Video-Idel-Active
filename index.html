@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<link rel="stylesheet" href="style.css">
+
+	<style>
+		.animate {
+			animation-name: boom;
+			animation-duration: 0.4s;
+			animation-timing-function: ease-in-out;
+		}
+
+		.animate2 {
+			animation-name: boom2;
+			animation-duration: 0.4s;
+			animation-timing-function: ease-in-out;
+		}
+
+		@keyframes boom {
+			0% {}
+
+			50% {
+				transform: scale(.9, 1.5);
+				transform-origin: bottom;
+			}
+
+			100% {}
+		}
+
+		@keyframes boom2 {
+			0% {}
+
+			50% {
+				transform: scale(.9, 1.5);
+				transform-origin: bottom;
+			}
+
+			100% {}
+		}
+	</style>
+</head>
+
+<body>
+
+	<section>
+		<div class="grid">
+			<div class="wrap__video">
+				<video id="video" width="100%" height="auto" preload="auto"  poster="postesr.jpg" playsinline>
+					<source src="video.mp4#t=2.3" type="video/mp4">
+					</source>
+				</video>
+
+			</div>
+			<div id="text"></div>
+
+		</div>
+
+	</section>
+
+
+	<script src="jquery.min.js"></script>
+
+	<script>
+		$(function () {
+			//Полифил для requestAnimationFrame
+			(function () {
+				var lastTime = 0;
+				var vendors = ['ms', 'moz', 'webkit', 'o'];
+				for (var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+					window.requestAnimationFrame = window[vendors[x] + 'RequestAnimationFrame'];
+					window.cancelAnimationFrame = window[vendors[x] + 'CancelAnimationFrame'] ||
+						window[vendors[x] + 'CancelRequestAnimationFrame'];
+				}
+
+				if (!window.requestAnimationFrame)
+					window.requestAnimationFrame = function (callback, element) {
+						var currTime = new Date().getTime();
+						var timeToCall = Math.max(0, 16 - (currTime - lastTime));
+						var id = window.setTimeout(function () {
+								callback(currTime + timeToCall);
+							},
+							timeToCall);
+						lastTime = currTime + timeToCall;
+						return id;
+					};
+
+				if (!window.cancelAnimationFrame)
+					window.cancelAnimationFrame = function (id) {
+						clearTimeout(id);
+					};
+			}());
+			//Полифил для requestAnimationFrame end
+
+			var video = document.getElementById('video');
+			var text = document.getElementById('text');
+			var startTime = 2.35;
+			var i = true;
+			var flagAnimation = 0;
+
+			requestAnimationFrame(animateIdel);
+
+			function animateIdel() {
+				if (i) {
+					i = false;
+				} else {
+					requestID = requestAnimationFrame(animateIdel);
+					video.currentTime = 2.35;
+					setTimeout(function () {
+						video.play();
+					}, 0);
+					i = true;
+				}
+			}
+
+			function animateActive() {
+				if (flagAnimation === 0) {
+					video.setAttribute('class', 'animate');
+					flagAnimation++;
+				} else {
+					video.setAttribute('class', 'animate2');
+					flagAnimation = 0;
+				}
+				video.currentTime = 0.1;
+				video.play();
+			}
+
+
+
+			/* 			function loop() {
+							video.currentTime = 2.35;
+
+							setTimeout(function () {
+								video.play();
+							}, 0);
+						}
+
+						function startAnimation() {
+							if (flagAnimation === 0) {
+								video.setAttribute('class', 'animate');
+								flagAnimation++;
+							} else {
+								video.setAttribute('class', 'animate2');
+								flagAnimation = 0;
+							}
+							video.currentTime = 0.1;
+							video.play();
+						} */
+
+
+			video.addEventListener('loadedmetadata', animateIdel, false);
+			video.addEventListener('click', animateActive, false);
+			video.addEventListener('ended', animateIdel, false);
+			//video.addEventListener('timeupdate', loop, false);
+
+
+
+		/* 	l = document.getElementsByTagName('video');
+			for (var i = 0; i < l.length; ++i)
+				if (l[i].autoplay) l[i].play();
+
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			/* 	var time = $('#time');
+				var video = $('.video-1')[0];
+				var audio = $('.audio')[0];
+				var currentTime;
+				var currentTimeEnd;
+				var timerId;
+
+				video.play();
+				loop();
+
+				function loop() {
+					timerId = setInterval(function () {
+						currentTime = video.currentTime;
+						//time.val(currentTime);
+						if ((currentTime >= 1.1) && (currentTime <= 1.3)) {
+							video.currentTime = 0;
+						}
+					}, 1);
+				}
+
+
+
+
+				$(".video-1, .click").on("click", function () {
+					clearInterval(timerId);
+					audio.play();
+					video.currentTime = 1.4;
+					$(".click").toggleClass("b-g");
+					/* 	var timerEnd = setInterval(function () {
+							currentTimeEnd = video.currentTime;
+							time.val(currentTimeEnd);
+							if (currentTimeEnd >= 3) {
+								video.currentTime = 0;
+							}
+						}, 1); */
+			/* 		})
+					$('.video-1').on("ended", function () {
+						loop();
+						video.currentTime = 0;
+						video.play();
+					});  */
+
+
+		});
+	</script>
+</body>
+
+</html>
