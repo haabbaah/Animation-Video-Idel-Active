@@ -7,57 +7,26 @@
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>Document</title>
 	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="idel-active.css">
 
-	<style>
-		.animate {
-			animation-name: boom;
-			animation-duration: 0.4s;
-			animation-timing-function: ease-in-out;
-		}
-
-		.animate2 {
-			animation-name: boom2;
-			animation-duration: 0.4s;
-			animation-timing-function: ease-in-out;
-		}
-
-		@keyframes boom {
-			0% {}
-
-			50% {
-				transform: scale(.9, 1.5);
-				transform-origin: bottom;
-			}
-
-			100% {}
-		}
-
-		@keyframes boom2 {
-			0% {}
-
-			50% {
-				transform: scale(.9, 1.5);
-				transform-origin: bottom;
-			}
-
-			100% {}
-		}
-	</style>
 </head>
 
 <body>
 
 	<section>
 		<div class="grid">
+			
 			<div class="wrap__video">
 				<video id="video" width="100%" height="auto" preload="auto" playsinline>
 					<source src="video.mp4#t=4.1" type="video/mp4">
 					</source>
 				</video>
-
 			</div>
+
 			<div id="text"></div>
 			<button style="width: 5em; height: 2em; margin-top: 3em;"></button>
+
+
 
 			<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum voluptates aliquam optio illo exercitationem fuga
 				amet laborum quaerat assumenda obcaecati repellat, eveniet labore. Nesciunt magnam ullam esse dolore molestias
@@ -84,84 +53,11 @@
 
 	<script src="jquery.min.js"></script>
 
+	<script src="idel-active.js"></script>
 	<script>
-		$(function () {
-			//Полифил для requestAnimationFrame
-			(function () {
-				var lastTime = 0;
-				var vendors = ['ms', 'moz', 'webkit', 'o'];
-				for (var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
-					window.requestAnimationFrame = window[vendors[x] + 'RequestAnimationFrame'];
-					window.cancelAnimationFrame = window[vendors[x] + 'CancelAnimationFrame'] ||
-						window[vendors[x] + 'CancelRequestAnimationFrame'];
-				}
-
-				if (!window.requestAnimationFrame)
-					window.requestAnimationFrame = function (callback, element) {
-						var currTime = new Date().getTime();
-						var timeToCall = Math.max(0, 16 - (currTime - lastTime));
-						var id = window.setTimeout(function () {
-								callback(currTime + timeToCall);
-							},
-							timeToCall);
-						lastTime = currTime + timeToCall;
-						return id;
-					};
-
-				if (!window.cancelAnimationFrame)
-					window.cancelAnimationFrame = function (id) {
-						clearTimeout(id);
-					};
-			}());
-			//Полифил для requestAnimationFrame end
-
-			/* 	l = document.getElementsByTagName('video');
-			for (var i = 0; i < l.length; ++i) l[i].pause();
-			for (var i = 0; i < l.length; ++i)
-				if (l[i].autoplay) l[i].play();
- */
-
-
-
-			var video = document.getElementById('video');
-			var text = document.getElementById('text');
-			var startTime = 2.35;
-			var i = true;
-			var flagAnimation = 0;
-
-
-			requestAnimationFrame(animateIdel);
-
-			function animateIdel() {
-				if (i) {
-					i = false;
-				} else {
-					requestAnimationFrame(animateIdel);
-					video.currentTime = 4.1;
-					setTimeout(function () {
-						video.play();
-					}, 0);
-					i = true;
-				}
-			}
-
-			function animateActive() {
-				if (flagAnimation === 0) {
-					video.setAttribute('class', 'animate');
-					flagAnimation++;
-				} else {
-					video.setAttribute('class', 'animate2');
-					flagAnimation = 0;
-				}
-				video.currentTime = 0.1;
-				video.play();
-			}
-
-
-			video.addEventListener('loadedmetadata', animateIdel, false);
-			video.addEventListener('click', animateActive, false);
-			video.addEventListener('ended', animateIdel, false);
-
+		var animation1 = new VideoAnimation({
+			selictor: 'video',
+			startTime: 4.1,
 		});
 	</script>
 </body>
