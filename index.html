@@ -15,50 +15,51 @@
 
 	<section>
 		<div class="grid">
-			
+
 			<div class="wrap__video">
-				<video id="video" width="100%" height="auto" preload="auto" playsinline>
+				<video class="idel-active-video" width="100%" height="auto" preload="auto" muted playsinline>
 					<source src="video.mp4#t=4.1" type="video/mp4">
 					</source>
 				</video>
 			</div>
 
-			<div id="text"></div>
-			<button style="width: 5em; height: 2em; margin-top: 3em;"></button>
 
-
-
-			<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum voluptates aliquam optio illo exercitationem fuga
-				amet laborum quaerat assumenda obcaecati repellat, eveniet labore. Nesciunt magnam ullam esse dolore molestias
-				autem!</p>
-			<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum voluptates aliquam optio illo exercitationem fuga
-				amet laborum quaerat assumenda obcaecati repellat, eveniet labore. Nesciunt magnam ullam esse dolore molestias
-				autem!</p>
-			<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum voluptates aliquam optio illo exercitationem fuga
-				amet laborum quaerat assumenda obcaecati repellat, eveniet labore. Nesciunt magnam ullam esse dolore molestias
-				autem!</p>
-			<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum voluptates aliquam optio illo exercitationem fuga
-				amet laborum quaerat assumenda obcaecati repellat, eveniet labore. Nesciunt magnam ullam esse dolore molestias
-				autem!</p>
-			<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum voluptates aliquam optio illo exercitationem fuga
-				amet laborum quaerat assumenda obcaecati repellat, eveniet labore. Nesciunt magnam ullam esse dolore molestias
-				autem!</p>
-			<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum voluptates aliquam optio illo exercitationem fuga
-				amet laborum quaerat assumenda obcaecati repellat, eveniet labore. Nesciunt magnam ullam esse dolore molestias
-				autem!</p>
 		</div>
 
 	</section>
 
 
-	<script src="jquery.min.js"></script>
-
 	<script src="idel-active.js"></script>
+
 	<script>
-		var animation1 = new VideoAnimation({
-			selictor: 'video',
+		let animation1 = new IdelActiveAnimation({
+			selector: '.idel-active-video',
 			startTime: 4.1,
 		});
+	</script>
+
+	<script>
+		/* 		function UMShowPage() { //При открытии страницы
+			let arrSelectors = ['.play-sound'];
+
+			for (const selector of arrSelectors) {
+				let media = document.querySelectorAll(selector);
+				for (const i of media) {
+					i.play();
+				}
+			}
+		} */
+
+		function UMHidePage() { //При уходе со страницы
+			let arrSelectors = ['.idel-active-video'];
+
+			for (const selector of arrSelectors) {
+				let media = document.querySelectorAll(selector);
+				for (const i of media) {
+					i.pause();
+				}
+			}
+		}
 	</script>
 </body>
 

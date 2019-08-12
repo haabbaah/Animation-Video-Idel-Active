@@ -7,46 +7,6 @@ video {
 	height: auto;
 }
 
-.zag h2 {
-	margin-bottom: 0.3em;
-	font-size: 300%;
-}
-
-.zag p {
-	margin-top: 0em;
-	margin-bottom: 5em;
-	font-size: 200%;
-}
-
 .grid {
 	margin: 2em 10%;
-}
-
-.wrap__video {
-
-}
-
-.video-1 {
-	border-radius: 50%;
-	border: 5px solid #fff;
-	user-select: none;
-	-webkit-user-select: none;
-}
-
-.b-g {
-	background-color: rgb(233, 16, 16);
-}
-
-.d-n {
-	display: none;
-}
-
-@media (max-device-width: 11cm) {
-	.zag h2 {
-		font-size: 200%;
-	}
-	.zag p {
-		margin-bottom: 4em;
-		font-size: 100%;
-	}
 }
